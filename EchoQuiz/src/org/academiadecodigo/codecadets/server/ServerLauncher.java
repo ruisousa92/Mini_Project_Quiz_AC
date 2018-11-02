@@ -1,5 +1,7 @@
 package org.academiadecodigo.codecadets.server;
 
+import org.academiadecodigo.codecadets.prompt.Messages;
+
 import java.io.IOException;
 
 public class ServerLauncher {
@@ -11,6 +13,7 @@ public class ServerLauncher {
         try {
             Server server = new Server(DEFAULT_PORT);
             server.start();
+
 
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
