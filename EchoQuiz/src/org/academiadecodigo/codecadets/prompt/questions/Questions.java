@@ -3,9 +3,9 @@ package org.academiadecodigo.codecadets.prompt.questions;
 public enum Questions {
 
     QUESTION_ONE("Who is the Supreme Lider?"),
-    QUESTION_TWO("How many pillars theres on OOP languages"),
-    QUESTION_THREE("Question three?"),
-    QUESTION_FOUR("Question four?"),
+    QUESTION_TWO("In Java the simbols \"<\" and \">\" represent what? "),
+    QUESTION_THREE("MVC stands for?"),
+    QUESTION_FOUR("In AC lore, what are Tomatoes?"),
     QUESTION_FIVE("Question five?"),
     QUESTION_SIX("Question six?"),
     QUESTION_SEVEN("Question seven?"),

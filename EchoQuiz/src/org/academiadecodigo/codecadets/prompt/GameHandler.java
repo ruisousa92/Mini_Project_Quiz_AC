@@ -35,12 +35,12 @@ public class GameHandler implements Runnable {
             int userInput = buildQuestion(questionNumber);
 
             if (userInput == stringMap.get(Questions.values()[questionNumber].getMessage())) {
-                System.out.println("acertei");
+                System.out.println("Your answer is Correct!");
                 client.incrementScore();
                 continue;
 
             }
-            System.out.println("you stupid!");
+            System.out.println("Wrong answer!");
         }
     }
 

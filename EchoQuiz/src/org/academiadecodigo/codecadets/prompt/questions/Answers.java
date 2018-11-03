@@ -4,9 +4,9 @@ package org.academiadecodigo.codecadets.prompt.questions;
 public enum Answers {
 
     ANSWERS_QUESTION_ONE(4, new String[]{"Rodrigo", "Nuno", "Zé", "Refs"}),
-    ANSWERS_QUESTION_TWO(2, new String[]{"answer1", "answer2", "answer3", "answer4"}),
-    ANSWERS_QUESTION_THREE(3, new String[]{"answer1", "answer2", "answer3", "answer4"}),
-    ANSWERS_QUESTION_FOUR(2, new String[]{"answer1", "answer2", "answer3", "answer4"}),
+    ANSWERS_QUESTION_TWO(3, new String[]{"Integers", "Your Mom", "Arrows", "Operators"}),
+    ANSWERS_QUESTION_THREE(3, new String[]{"Model View Computer", "Modern Viewer Controller", "Model View Controller", "Model Vision Controller"}),
+    ANSWERS_QUESTION_FOUR(2, new String[]{"Fruit", "Vegetable", "Tubérculo", "A Male body part"}),
     ANSWERS_QUESTION_FIVE(1, new String[]{"answer1", "answer2", "answer3", "answer4"}),
     ANSWERS_QUESTION_SIX(4, new String[]{"answer1", "answer2", "answer3", "answer4"}),
     ANSWERS_QUESTION_SEVEN(2, new String[]{"answer1", "answer2", "answer3", "answer4"}),
