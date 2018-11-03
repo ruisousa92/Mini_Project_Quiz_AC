@@ -10,9 +10,24 @@ public class Client {
 
 
 
+
     public Client(String host, int portNumber) throws IOException {
         this.socket = new Socket(host, portNumber);
         this.score = 0;
+
+    }
+
+    public void start() {
+        Thread clientThread = new Thread();
+        clientThread.start();
+
+        synchronized (clientThread) {
+            while (!socket.isClosed()) {
+
+
+            }
+        }
+
     }
 
 

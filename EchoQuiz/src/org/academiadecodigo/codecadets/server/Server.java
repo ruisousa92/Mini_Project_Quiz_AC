@@ -37,13 +37,7 @@ public class Server {
      *
      */
     public void start() {
-
-        int openedConnections = 0;
-
-        while (openedConnections < 2) {
-            waitingForClientConnections(openedConnections);
-            openedConnections++;
-        }
+        waitingForClientConnections();
 
         gameHandler.start();
 
@@ -54,17 +48,22 @@ public class Server {
      * Has a blocking method - accept(); - it will wait until a client connects to
      * the corresponded port number.
      *
-     * @param connections
+     *
      * @throws IOException
      */
-    public void waitingForClientConnections(int connections) {
+    public void waitingForClientConnections() {
 
         try {
             System.out.println("Waiting for client connections");
-            Socket clientSocket = serverSocket.accept();
 
-            ClientHandler connection = new ClientHandler(clientSocket, DEFAULT_NAME + connections + "has connected!");
-            service.submit(connection);
+            Socket clientSocket = serverSocket.accept();
+            Socket clientSockect2 = serverSocket.accept();
+
+            ClientHandler connection1 = new ClientHandler(clientSocket, DEFAULT_NAME + 1 + "has connected!");
+            ClientHandler connection2 = new ClientHandler(clientSockect2, DEFAULT_NAME + 2 + "has connected!");
+
+            service.submit(connection1);
+            service.submit(connection2);
 
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
@@ -108,6 +107,7 @@ public class Server {
      * handles and distributes sockets to a client/user each time they connect
      */
     public class ClientHandler implements Runnable {
+
         private Socket socket;
         private String name;
         private PrintWriter outputWriter;
@@ -162,8 +162,11 @@ public class Server {
             }
         }
 
-        private void sendServerMessage(String message) {
+        private void sendQuestion(){
+            outputWriter.println();
+        }
 
+        private void sendServerMessage(String message) {
             outputWriter.println(message);
         }
     }

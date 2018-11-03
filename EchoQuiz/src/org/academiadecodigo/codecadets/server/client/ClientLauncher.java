@@ -9,9 +9,10 @@ public class ClientLauncher {
 
         try {
             Client client = new Client("localhost", 9090);
-
+            client.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
