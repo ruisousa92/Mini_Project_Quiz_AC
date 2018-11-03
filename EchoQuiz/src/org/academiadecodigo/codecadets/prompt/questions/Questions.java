@@ -2,7 +2,7 @@ package org.academiadecodigo.codecadets.prompt.questions;
 
 public enum Questions {
 
-    QUESTION_ONE("Question one ?"),
+    QUESTION_ONE("Who is the Supreme Lider?"),
     QUESTION_TWO("Question two?"),
     QUESTION_THREE("Question three?"),
     QUESTION_FOUR("Question four?"),
@@ -16,7 +16,8 @@ public enum Questions {
     QUESTION_TWELVE("Question?"),
     QUESTION_THIRTEEN("Question?"),
     QUESTION_FOURTEEN("Question?"),
-    QUESTION_FIFTHEEN("Question?");
+    QUESTION_FIFTEEN("Question?");
+
 
     private String message;
 
