@@ -1,6 +1,6 @@
 package org.academiadecodigo.codecadets.server;
 
-import org.academiadecodigo.codecadets.prompt.Messages;
+import org.academiadecodigo.codecadets.prompt.GameHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,11 +22,15 @@ public class Server {
     private final ServerSocket serverSocket;
     private final ExecutorService service;
     private final List<ClientHandler> clients;
+    private GameHandler gameHandler;
+
 
     public Server(int portNumber) throws IOException {
         this.serverSocket = new ServerSocket(portNumber);
         this.service = Executors.newFixedThreadPool(MAXIMUM_CLIENTS);
         this.clients = Collections.synchronizedList(new LinkedList<>());
+        this.gameHandler = new GameHandler(serverSocket);
+
     }
 
     /**
@@ -36,10 +40,12 @@ public class Server {
 
         int openedConnections = 0;
 
-        while (openedConnections <= 2) {
+        while (openedConnections < 2) {
             waitingForClientConnections(openedConnections);
             openedConnections++;
         }
+
+        gameHandler.start();
 
     }
 
@@ -160,6 +166,5 @@ public class Server {
 
             outputWriter.println(message);
         }
-
     }
 }

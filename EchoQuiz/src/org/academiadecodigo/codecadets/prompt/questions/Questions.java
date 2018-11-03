@@ -3,7 +3,7 @@ package org.academiadecodigo.codecadets.prompt.questions;
 public enum Questions {
 
     QUESTION_ONE("Who is the Supreme Lider?"),
-    QUESTION_TWO("Question two?"),
+    QUESTION_TWO("How many pillars theres on OOP languages"),
     QUESTION_THREE("Question three?"),
     QUESTION_FOUR("Question four?"),
     QUESTION_FIVE("Question five?"),

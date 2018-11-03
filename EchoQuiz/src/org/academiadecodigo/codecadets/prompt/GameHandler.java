@@ -6,15 +6,26 @@ import org.academiadecodigo.codecadets.prompt.questions.Answers;
 import org.academiadecodigo.codecadets.prompt.questions.Questions;
 import org.academiadecodigo.codecadets.server.client.Client;
 
+import java.net.ServerSocket;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class PromptView {
+public class GameHandler implements Runnable {
 
-    private Prompt prompt = new Prompt(System.in, System.out);
+    private Prompt prompt;
     private Map<String, Integer> stringMap;
     private Client client;
+    private ServerSocket serverSocket;
 
+    public GameHandler(ServerSocket serverSocket) {
+        this.prompt = new Prompt(System.in, System.out);
+        this.serverSocket = serverSocket;
+    }
+
+    @Override
+    public void run() {
+        start();
+    }
 
     public void start() {
 
@@ -51,4 +62,5 @@ public class PromptView {
             stringMap.put(Questions.values()[mapPosition].getMessage(), Answers.values()[mapPosition].getCorrectAnswer());
         }
     }
+
 }

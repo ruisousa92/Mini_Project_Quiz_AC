@@ -6,23 +6,21 @@ import java.net.Socket;
 public class Client {
 
     private Socket socket;
+    private int score;
+
+
 
     public Client(String host, int portNumber) throws IOException {
-        socket = new Socket(host,portNumber);
+        this.socket = new Socket(host, portNumber);
+        this.score = 0;
     }
 
 
-    public void start() {
-
-
+    public void incrementScore() {
+        score++;
     }
 
-
-    public
-
-
-
-
-
-
+    public int getScore() {
+        return score;
+    }
 }
