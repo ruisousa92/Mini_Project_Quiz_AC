@@ -4,14 +4,16 @@ import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.codecadets.prompt.questions.Answers;
 import org.academiadecodigo.codecadets.prompt.questions.Questions;
+import org.academiadecodigo.codecadets.server.client.Client;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class PrompView {
+public class PromptView {
 
     private Prompt prompt = new Prompt(System.in, System.out);
     private Map<String, Integer> stringMap;
+    private Client client;
 
 
     public void start() {
@@ -23,6 +25,7 @@ public class PrompView {
 
             if (userInput == stringMap.get(Questions.values()[questionNumber].getMessage())) {
                 System.out.println("acertei");
+                client.incrementScore();
                 continue;
 
             }
