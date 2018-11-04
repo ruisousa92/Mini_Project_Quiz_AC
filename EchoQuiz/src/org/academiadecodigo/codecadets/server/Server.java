@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final String DEFAULT_NAME = "Code Cadet";
     private static final int MAXIMUM_CLIENTS = 2;
     private final ServerSocket serverSocket;
     private final ExecutorService service;

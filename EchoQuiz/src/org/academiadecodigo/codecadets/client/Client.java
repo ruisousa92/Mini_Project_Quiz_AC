@@ -41,9 +41,11 @@ public class Client {
     }
 
     public void start() {
+
         while (!socket.isClosed()) {
 
             try {
+
                 String question = readFromServer();
 
                 if (question.isEmpty()) {

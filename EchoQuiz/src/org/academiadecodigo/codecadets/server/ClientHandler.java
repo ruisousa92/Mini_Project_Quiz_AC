@@ -27,6 +27,7 @@ public class ClientHandler implements Runnable {
     public void run() {
 
         try {
+
             //TODO: fix this "*2"
             for (int i = 0; i < Questions.values().length * 2; i++) {
                 messageHandle(inputReader.readLine());
