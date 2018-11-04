@@ -23,8 +23,12 @@ public class Client {
     private int questionNum = 1;
 
 
-    public Client(String host, int portNumber) throws IOException {
-        this.socket = new Socket(host, portNumber);
+    public Client(String host, int portNumber) {
+        try {
+            this.socket = new Socket(host, portNumber);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.prompt = new Prompt(System.in, System.out);
     }
 
