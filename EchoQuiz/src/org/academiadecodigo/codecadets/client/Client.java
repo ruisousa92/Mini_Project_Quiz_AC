@@ -2,6 +2,7 @@ package org.academiadecodigo.codecadets.client;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
+import org.academiadecodigo.codecadets.communication.Welcome;
 import org.academiadecodigo.codecadets.communication.Messages;
 import org.academiadecodigo.codecadets.questions.Questions;
 
@@ -40,8 +41,11 @@ public class Client {
         return true;
     }
 
+
     public void start() {
 
+        String[] play = {"Start Game"};
+        buildWelcome(Welcome.WELCOME_MENU.getMessage(), play);
         while (!socket.isClosed()) {
 
             try {
@@ -54,6 +58,8 @@ public class Client {
 
                 String[] questionArray = splitter(question);
                 String[] answerIndex = {questionArray[1], questionArray[2], questionArray[3], questionArray[4]};
+
+
                 buildQuestion(questionArray[0], answerIndex);
                 String finalQuestion = Questions.values()[Questions.values().length - 1].getMessage();
 
@@ -89,6 +95,14 @@ public class Client {
         }
         questionNumber++;
     }
+
+    public void buildWelcome(String message, String[] option) {
+        MenuInputScanner scanner = new MenuInputScanner(option);
+        scanner.setMessage(message);
+
+        prompt.getUserInput(scanner);
+    }
+
 
     private String readFromServer() throws IOException {
         String message = "";

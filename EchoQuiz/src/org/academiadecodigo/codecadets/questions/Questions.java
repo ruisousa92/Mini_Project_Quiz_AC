@@ -16,7 +16,7 @@ public enum Questions {
     QUESTION_TWELVE(2, "Which member of AC received \"Pé de ladrão\" from a police officer?&Ruben Maia&Brigas Pantufas&Rudy&Jorge"),
     QUESTION_THIRTEEN(4, "Which Master coder is the best one?&Praise&Master&Coder&Jorge"),
     QUESTION_FOURTEEN(2, "What is the best place to check Documentation?&JavaDocs&StackOverFlow&Roberto&Master Coders"),
-    QUESTION_FIFTEEN(3, "What is the ?&Garbage && 13 & 5 6");
+    QUESTION_FIFTEEN(3, "Where are we all going to work?&Garbage Truck&Restaurant&SubWay&InfoSistema (10+2)");
 
     private String message;
     private int correctAnswer;

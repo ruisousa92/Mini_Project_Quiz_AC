@@ -102,7 +102,7 @@ public class Server {
     }
 
     /**
-     * Method to send questions-menu for the Clients
+     * Method to send questions-Menu for the Clients
      *
      * @param serverMessage
      */
