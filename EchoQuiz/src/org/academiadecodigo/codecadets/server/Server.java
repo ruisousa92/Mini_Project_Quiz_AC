@@ -1,6 +1,6 @@
 package org.academiadecodigo.codecadets.server;
 
-import org.academiadecodigo.codecadets.quiz.Questions;
+import org.academiadecodigo.codecadets.questions.Questions;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,9 +13,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final String DEFAULT_NAME = "Code Cadet";
     private static final int MAXIMUM_CLIENTS = 2;
-
     private final ServerSocket serverSocket;
     private final ExecutorService service;
     private final List<ClientHandler> clients;
@@ -29,15 +27,14 @@ public class Server {
     }
 
     public void start() {
+
         waitingForClientConnections();
 
-        //TODO Change 1 for Question.lenght
         for (int questionNumber = 0; questionNumber < getGameLength(); questionNumber++) {
             playRound(questionNumber);
         }
 
         clientHandler.sendScore(clientHandler, clientHandler2);
-        System.out.println("teste");
     }
 
     /**
@@ -46,9 +43,11 @@ public class Server {
      * @param questionNumber number of the question
      */
     public void playRound(int questionNumber) {
+
         serverBroadcast(getQuestion(questionNumber));
 
         while (!clientHandler.isPlayed() || !clientHandler2.isPlayed()) {
+
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -71,12 +70,11 @@ public class Server {
         try {
             System.out.println("Waiting for client connections");
 
-
             Socket clientSocket = serverSocket.accept();
             Socket clientSocket2 = serverSocket.accept();
 
-            clientHandler = new ClientHandler(clientSocket, DEFAULT_NAME + "has connected!");
-            clientHandler2 = new ClientHandler(clientSocket2, DEFAULT_NAME + "has connected!");
+            clientHandler = new ClientHandler(clientSocket);
+            clientHandler2 = new ClientHandler(clientSocket2);
 
             clientHandler.openIOStreams();
             clientHandler2.openIOStreams();
@@ -87,30 +85,29 @@ public class Server {
             service.submit(clientHandler);
             service.submit(clientHandler2);
 
-
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
     /**
+     * Adds clients to the LinkedList.
      * @param clientHandler
      * @return
      */
-    private boolean addClient(ClientHandler clientHandler) {
+    private void addClient(ClientHandler clientHandler) {
+
         synchronized (clients) {
             if (clients.size() > MAXIMUM_CLIENTS) {
-                return false;
+                return;
             }
 
             clients.add(clientHandler);
-            return true;
         }
     }
 
     /**
-     * Method to send questions-menu for the Clients
-     *
+     * Method to send questions-menu for the Clients.
      * @param serverMessage
      */
     public void serverBroadcast(String serverMessage) {
@@ -124,11 +121,11 @@ public class Server {
     /**
      * @return
      */
-    public int getGameLength() {
+    private int getGameLength() {
         return Questions.values().length;
     }
 
-    public String getQuestion(int question) {
+    private String getQuestion(int question) {
         return Questions.values()[question].getMessage();
     }
 }

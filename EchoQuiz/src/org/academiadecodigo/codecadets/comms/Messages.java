@@ -1,7 +1,7 @@
 package org.academiadecodigo.codecadets.comms;
 
 public enum Messages {
-    RESP,
+    RESPONSE,
     CORRECT,
     WRONG;
 

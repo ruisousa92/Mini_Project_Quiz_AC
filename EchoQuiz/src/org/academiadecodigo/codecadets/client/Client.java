@@ -3,7 +3,7 @@ package org.academiadecodigo.codecadets.client;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.codecadets.comms.Messages;
-import org.academiadecodigo.codecadets.quiz.Questions;
+import org.academiadecodigo.codecadets.questions.Questions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class Client {
     private Prompt prompt;
     private PrintWriter writer;
     private BufferedReader reader;
-    private int questionNum = 1;
+    private int questionNumber = 1;
 
     public Client(String host, int portNumber) {
         try {
@@ -40,6 +40,7 @@ public class Client {
     }
 
     public void start() {
+
         while (!socket.isClosed()) {
             try {
 
@@ -51,7 +52,7 @@ public class Client {
 
                 String[] questionArray = splitter(question);
                 String[] answerIndex = {questionArray[1], questionArray[2], questionArray[3], questionArray[4]};
-                buildQuestion(questionArray[0], answerIndex);
+                questionBuilder(questionArray[0], answerIndex);
                 String finalQuestion = Questions.values()[Questions.values().length - 1].getMessage();
 
                 if (question.equals(finalQuestion)) {
@@ -70,16 +71,15 @@ public class Client {
         return question.split("&");
     }
 
-    public void buildQuestion(String question, String[] answerArray) {
+    public void questionBuilder(String question, String[] answerArray) {
 
         MenuInputScanner scanner = new MenuInputScanner(answerArray);
         scanner.setMessage(question);
 
         int chosenAnswer = prompt.getUserInput(scanner);
+        String[] query = {questionNumber + "", chosenAnswer + ""};
 
-        String[] query = {questionNum + "", chosenAnswer + ""};
-
-        writer.println(Messages.sendResponse(Messages.RESP, query));
+        writer.println(Messages.sendResponse(Messages.RESPONSE, query));
 
         try {
             String response = readFromServer();
@@ -88,7 +88,7 @@ public class Client {
             e.printStackTrace();
         }
 
-        questionNum++;
+        questionNumber++;
     }
 
     private String readFromServer() throws IOException {
