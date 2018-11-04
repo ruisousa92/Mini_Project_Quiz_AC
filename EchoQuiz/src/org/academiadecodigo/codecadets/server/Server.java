@@ -31,26 +31,13 @@ public class Server {
     public void start() {
         waitingForClientConnections();
 
-        //TODO Change 2 for Question.lenght
-        for (int questionNumber = 0; questionNumber < 2; questionNumber++) {
+        //TODO Change 1 for Question.lenght
+        for (int questionNumber = 0; questionNumber < getGameLength(); questionNumber++) {
             playRound(questionNumber);
         }
 
-        if (clientHandler.getScore() == clientHandler2.getScore()) {
-            clientHandler.sendToClient("It's a tie mdfkkkk!");
-            clientHandler2.sendToClient("It's a tie mdfkkkk!");
-            return;
-
-        }
-
-        if (clientHandler.getScore() > clientHandler2.getScore()) {
-            clientHandler.sendToClient("You win with the score of: " + clientHandler.getScore());
-            clientHandler2.sendToClient("You lose with the score of: " + clientHandler.getScore());
-            return;
-        }
-
-        clientHandler.sendToClient("You lose with the score of: " + clientHandler.getScore());
-        clientHandler2.sendToClient("You win with the score of: " + clientHandler2.getScore());
+        clientHandler.sendScore(clientHandler, clientHandler2);
+        System.out.println("teste");
     }
 
     /**

@@ -33,8 +33,6 @@ public class ClientHandler implements Runnable {
                 messageHandle(inputReader.readLine());
             }
 
-            outputWriter.println();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,18 +51,37 @@ public class ClientHandler implements Runnable {
         played = true;
 
 
-
         Questions question = Questions.values()[questionNumber - 1];
 
         if (question.getCorrectAnswer() == chosenAnswer) {
             incrementScore();
-            outputWriter.println("Your score is: " + getScore() + " and the question is: ");
+            outputWriter.println("Your score is: " + getScore() + " and the answer is: ");
             outputWriter.println(Messages.sendResponse(Messages.CORRECT, null));
 
             return;
         }
-        outputWriter.println("Your score is: " + getScore() + " and the question is: ");
+        outputWriter.println("Your score is: " + getScore() + " and the answer is: ");
         outputWriter.println(Messages.sendResponse(Messages.WRONG, null));
+
+    }
+
+    public void sendScore(ClientHandler clientHandler, ClientHandler clientHandler2) {
+
+        if (clientHandler.getScore() == clientHandler2.getScore()) {
+            clientHandler.outputWriter.println("It's a tie mdfkkkk!");
+            clientHandler2.outputWriter.println("It's a tie mdfkkkk!");
+            return;
+
+        }
+
+        if (clientHandler.getScore() > clientHandler2.getScore()) {
+            clientHandler.outputWriter.println("You win with the score of: " + clientHandler.getScore());
+            clientHandler2.outputWriter.println("You lose with the score of: " + clientHandler.getScore());
+            return;
+        }
+
+        clientHandler.outputWriter.println("You lose with the score of: " + clientHandler.getScore());
+        clientHandler2.outputWriter.println("You win with the score of: " + clientHandler2.getScore());
     }
 
     public void openIOStreams() {

@@ -3,6 +3,7 @@ package org.academiadecodigo.codecadets.client;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.codecadets.comms.Messages;
+import org.academiadecodigo.codecadets.quiz.Questions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,6 +52,12 @@ public class Client {
                 String[] questionArray = splitter(question);
                 String[] answerIndex = {questionArray[1], questionArray[2], questionArray[3], questionArray[4]};
                 buildQuestion(questionArray[0], answerIndex);
+                String finalQuestion = Questions.values()[Questions.values().length - 1].getMessage();
+
+                if (question.equals(finalQuestion)) {
+
+                    System.out.println(reader.readLine());
+                }
 
             } catch (IOException e) {
                 System.err.println("Server Disconnected.");
@@ -93,7 +100,7 @@ public class Client {
         }
 
         if (message == null) {
-            System.out.println("ByeBye");
+            System.out.println("Bye Bye");
             System.exit(0);
         }
 
