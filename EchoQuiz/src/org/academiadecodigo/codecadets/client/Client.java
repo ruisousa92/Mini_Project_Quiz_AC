@@ -4,7 +4,6 @@ import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.codecadets.comms.Messages;
 import org.academiadecodigo.codecadets.quiz.Questions;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
