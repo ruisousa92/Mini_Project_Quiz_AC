@@ -1,6 +1,6 @@
 package org.academiadecodigo.codecadets.prompt;
 
-import org.academiadecodigo.codecadets.prompt.questions.Questions;
+import org.academiadecodigo.codecadets.quiz.Questions;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -9,7 +9,7 @@ public class GameHandler {
 
     private Map<String, Integer> stringMap;
 
-    public void start() {
+    public void verifyAnswer() {
 
         System.out.println("Welcome to who wants to be programmater!!");
 

@@ -1,4 +1,4 @@
-package org.academiadecodigo.codecadets.prompt.questions;
+package org.academiadecodigo.codecadets.quiz;
 
 public enum Questions {
 
@@ -9,14 +9,14 @@ public enum Questions {
     QUESTION_FIVE(2,"Question five?&answer1&answer2&answer3&answer4"),                                                                                  
     QUESTION_SIX(3,"Question six?&answer1&answer2&answer3&answer4"),                                          
     QUESTION_SEVEN(4,"Question seven?&answer1&answer2&answer3&answer4"),                                      
-    QUESTION_EIGHT(2,"Question?&answer1&answer2&answer3&answer4"),                                         
-    QUESTION_NINE(1,"Question?&answer1&answer2&answer3&answer4"),                                            
-    QUESTION_TEN(3,"Question?&answer1&answer2&answer3&answer4"),
-    QUESTION_ELEVEN(2, "Question?&answer1&answer2&answer3&answer4"),
-    QUESTION_TWELVE(2, "Question?&answer1&answer2&answer3&answer4"),
-    QUESTION_THIRTEEN(3,"Question?&answer1&answer2&answer3&answer4"),
-    QUESTION_FOURTEEN(4, "Question?&answer1&answer2&answer3&answer4"),
-    QUESTION_FIFTEEN(1, "Question?&answer1&answer2&answer3&answer4");
+    QUESTION_EIGHT(2,"Question 8?&answer1&answer2&answer3&answer4"),
+    QUESTION_NINE(1,"Question 9?&answer1&answer2&answer3&answer4"),
+    QUESTION_TEN(3,"Question 10?&answer1&answer2&answer3&answer4"),
+    QUESTION_ELEVEN(2, "Question 11?&answer1&answer2&answer3&answer4"),
+    QUESTION_TWELVE(2, "Question 12?&answer1&answer2&answer3&answer4"),
+    QUESTION_THIRTEEN(3,"Question 13?&answer1&answer2&answer3&answer4"),
+    QUESTION_FOURTEEN(4, "Question 14?&answer1&answer2&answer3&answer4"),
+    QUESTION_FIFTEEN(1, "Question 15?&answer1&answer2&answer3&answer4");
 
 
     private String message;

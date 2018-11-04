@@ -1,6 +1,7 @@
 package org.academiadecodigo.codecadets.server;
 
 import org.academiadecodigo.codecadets.prompt.GameHandler;
+import org.academiadecodigo.codecadets.client.Client;
 import org.academiadecodigo.codecadets.server.client.ClientHandler;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private static final String DEFAULT_NAME = "";
+    private static final String DEFAULT_NAME = "Code Cadet";
     private static final int MAXIMUM_CLIENTS = 2;
 
     private final ServerSocket serverSocket;
@@ -25,6 +26,7 @@ public class Server {
     private ClientHandler clientHandler2;
 
 
+
     public Server(int portNumber) throws IOException {
         this.serverSocket = new ServerSocket(portNumber);
         this.service = Executors.newFixedThreadPool(MAXIMUM_CLIENTS);
@@ -33,25 +35,34 @@ public class Server {
 
     }
 
-    /**
-     *
-     */
+
     public void start() {
         waitingForClientConnections();
 
-        clientHandler.run();
-        clientHandler2.run();
-
         for (int questionNumber = 0; questionNumber < gameHandler.getGameLength(); questionNumber++) {
-            serverBroadcast(gameHandler.getQuestion(questionNumber));
+            playRound(questionNumber);
+
         }
+    }
+
+    public void playRound(int questionNumber){
+        serverBroadcast(gameHandler.getQuestion(questionNumber));
+
+        while (!clientHandler.isPlayed() || !clientHandler2.isPlayed() ) {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {}
+        }
+
+        clientHandler2.setPlayed(false);
+        clientHandler.setPlayed(false);
+
     }
 
 
     /**
      * Has a blocking method - accept(); - it will wait until a client connects to
      * the corresponded port number.
-     *
      *
      * @throws IOException
      */
@@ -60,17 +71,22 @@ public class Server {
         try {
             System.out.println("Waiting for client connections");
 
+
             Socket clientSocket = serverSocket.accept();
             Socket clientSocket2 = serverSocket.accept();
 
-            clientHandler = new ClientHandler(clientSocket, DEFAULT_NAME + 1 + "has connected!");
-            clientHandler2 = new ClientHandler(clientSocket2, DEFAULT_NAME + 2 + "has connected!");
+            clientHandler = new ClientHandler(clientSocket, DEFAULT_NAME + "has connected!");
+            clientHandler2 = new ClientHandler(clientSocket2, DEFAULT_NAME + "has connected!");
+
+            clientHandler.openIOStreams();
+            clientHandler2.openIOStreams();
+
+            addClient(clientHandler);
+            addClient(clientHandler2);
 
             service.submit(clientHandler);
             service.submit(clientHandler2);
 
-            addClient(clientHandler);
-            addClient(clientHandler2);
 
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
@@ -100,8 +116,7 @@ public class Server {
     public void serverBroadcast(String serverMessage) {
         synchronized (clients) {
             for (ClientHandler client : clients) {
-                client.sendServerQuestion(serverMessage);
-                //question menu logic
+                client.sendServerQuestion(serverMessage + "\n");
             }
         }
     }
