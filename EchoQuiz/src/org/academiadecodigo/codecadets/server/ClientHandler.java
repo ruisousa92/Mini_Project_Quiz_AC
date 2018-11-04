@@ -12,7 +12,7 @@ import java.net.Socket;
 public class ClientHandler implements Runnable {
 
     private Socket socket;
-    public PrintWriter outputWriter;
+    private PrintWriter outputWriter;
     private BufferedReader inputReader;
     private String name;
     private int score;
@@ -28,10 +28,12 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-
-            for (int i = 0; i < Questions.values().length; i++) {
+//TODO: fix this "*2"
+            for (int i = 0; i < Questions.values().length * 2; i++) {
                 messageHandle(inputReader.readLine());
             }
+
+            outputWriter.println();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,9 +51,7 @@ public class ClientHandler implements Runnable {
         int questionNumber = Integer.parseInt(messageParts[1]);
         int chosenAnswer = Integer.parseInt(messageParts[2]);
         played = true;
-        /**
-         * System.out.println(played);
-         */
+
 
 
         Questions question = Questions.values()[questionNumber - 1];
@@ -77,7 +77,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void sendServerQuestion(String message) {
+    public void sendToClient(String message) {
         outputWriter.println(message);
     }
 

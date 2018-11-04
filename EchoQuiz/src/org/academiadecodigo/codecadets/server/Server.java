@@ -31,22 +31,26 @@ public class Server {
     public void start() {
         waitingForClientConnections();
 
-        for (int questionNumber = 0; questionNumber < getGameLength(); questionNumber++) {
+        //TODO Change 2 for Question.lenght
+        for (int questionNumber = 0; questionNumber < 2; questionNumber++) {
             playRound(questionNumber);
         }
 
         if (clientHandler.getScore() == clientHandler2.getScore()) {
-            clientHandler.outputWriter.println("It's a tie mdfkkkk!");
-            clientHandler2.outputWriter.println("It's a tie mdfkkkk!");
+            clientHandler.sendToClient("It's a tie mdfkkkk!");
+            clientHandler2.sendToClient("It's a tie mdfkkkk!");
+            return;
 
         }
 
         if (clientHandler.getScore() > clientHandler2.getScore()) {
-            clientHandler.outputWriter.println("You win with the score of: " + clientHandler.getScore());
-            clientHandler2.outputWriter.println("You lose with the score of: " + clientHandler.getScore());
+            clientHandler.sendToClient("You win with the score of: " + clientHandler.getScore());
+            clientHandler2.sendToClient("You lose with the score of: " + clientHandler.getScore());
+            return;
         }
-        clientHandler.outputWriter.println("You lose with the score of: " + clientHandler.getScore());
-        clientHandler2.outputWriter.println("You win with the score of: " + clientHandler2.getScore());
+
+        clientHandler.sendToClient("You lose with the score of: " + clientHandler.getScore());
+        clientHandler2.sendToClient("You win with the score of: " + clientHandler2.getScore());
     }
 
     /**
@@ -67,19 +71,6 @@ public class Server {
 
         clientHandler2.setPlayed(false);
         clientHandler.setPlayed(false);
-        /**
-         * System.out.println(clientHandler.isPlayed());
-         *
-         *  System.out.println(clientHandler2.isPlayed());
-         *
-         *
-         *
-         *
-         *
-         */
-
-
-
     }
 
     /**
@@ -138,7 +129,7 @@ public class Server {
     public void serverBroadcast(String serverMessage) {
         synchronized (clients) {
             for (ClientHandler client : clients) {
-                client.sendServerQuestion(serverMessage + "\n");
+                client.sendToClient(serverMessage + "\n");
             }
         }
     }
