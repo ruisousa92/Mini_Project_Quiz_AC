@@ -1,6 +1,5 @@
-package org.academiadecodigo.codecadets.server.client;
+package org.academiadecodigo.codecadets.server;
 
-import org.academiadecodigo.codecadets.client.Client;
 import org.academiadecodigo.codecadets.comms.Messages;
 import org.academiadecodigo.codecadets.quiz.Questions;
 
@@ -12,14 +11,9 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
 
-    //Socket
     private Socket socket;
-
-    //Streams
-    private PrintWriter outputWriter;
+    public PrintWriter outputWriter;
     private BufferedReader inputReader;
-
-    //Others
     private String name;
     private int score;
     private boolean played;
@@ -47,6 +41,7 @@ public class ClientHandler implements Runnable {
     private void messageHandle(String message) {
         String[] messageParts = message.split(" ");
 
+
         if (messageParts.length != 3) {
             return;
         }
@@ -54,24 +49,23 @@ public class ClientHandler implements Runnable {
         int questionNumber = Integer.parseInt(messageParts[1]);
         int chosenAnswer = Integer.parseInt(messageParts[2]);
         played = true;
+        /**
+         * System.out.println(played);
+         */
 
-        Questions question = Questions.values()[questionNumber-1];
+
+        Questions question = Questions.values()[questionNumber - 1];
 
         if (question.getCorrectAnswer() == chosenAnswer) {
             incrementScore();
-
+            outputWriter.println("Your score is: " + getScore() + " and the question is: ");
             outputWriter.println(Messages.sendResponse(Messages.CORRECT, null));
+
             return;
         }
-
+        outputWriter.println("Your score is: " + getScore() + " and the question is: ");
         outputWriter.println(Messages.sendResponse(Messages.WRONG, null));
-
     }
-
-    private void incrementScore() {
-        this.score++;
-    }
-
 
     public void openIOStreams() {
 
@@ -83,16 +77,12 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void closeSocket() {
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
-    }
-
     public void sendServerQuestion(String message) {
         outputWriter.println(message);
+    }
+
+    private void incrementScore() {
+        this.score++;
     }
 
     public int getScore() {

@@ -13,15 +13,10 @@ import java.net.Socket;
 public class Client {
 
     private Socket socket;
-    private MenuInputScanner scanner;
     private Prompt prompt;
-
-    //Streams
     private PrintWriter writer;
     private BufferedReader reader;
-
     private int questionNum = 1;
-
 
     public Client(String host, int portNumber) {
         try {
@@ -70,14 +65,14 @@ public class Client {
 
     public void buildQuestion(String question, String[] answerArray) {
 
-        scanner = new MenuInputScanner(answerArray);
+        MenuInputScanner scanner = new MenuInputScanner(answerArray);
         scanner.setMessage(question);
 
         int chosenAnswer = prompt.getUserInput(scanner);
 
-        String[] query = {questionNum+"", chosenAnswer+""};
+        String[] query = {questionNum + "", chosenAnswer + ""};
 
-        writer.println(Messages.sendResponse(Messages.RESP, query ));
+        writer.println(Messages.sendResponse(Messages.RESP, query));
 
         try {
             String response = readFromServer();
@@ -93,7 +88,7 @@ public class Client {
         String message = "";
         String result = "";
 
-        while((message = reader.readLine()) != null && !message.isEmpty()) {
+        while ((message = reader.readLine()) != null && !message.isEmpty()) {
             result += message;
         }
 

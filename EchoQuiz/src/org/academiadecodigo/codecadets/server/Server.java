@@ -1,8 +1,6 @@
 package org.academiadecodigo.codecadets.server;
 
-import org.academiadecodigo.codecadets.prompt.GameHandler;
-import org.academiadecodigo.codecadets.client.Client;
-import org.academiadecodigo.codecadets.server.client.ClientHandler;
+import org.academiadecodigo.codecadets.quiz.Questions;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,44 +19,68 @@ public class Server {
     private final ServerSocket serverSocket;
     private final ExecutorService service;
     private final List<ClientHandler> clients;
-    private GameHandler gameHandler;
     private ClientHandler clientHandler;
     private ClientHandler clientHandler2;
-
-
 
     public Server(int portNumber) throws IOException {
         this.serverSocket = new ServerSocket(portNumber);
         this.service = Executors.newFixedThreadPool(MAXIMUM_CLIENTS);
         this.clients = Collections.synchronizedList(new LinkedList<>());
-        this.gameHandler = new GameHandler();
-
     }
-
 
     public void start() {
         waitingForClientConnections();
 
-        for (int questionNumber = 0; questionNumber < gameHandler.getGameLength(); questionNumber++) {
+        for (int questionNumber = 0; questionNumber < getGameLength(); questionNumber++) {
             playRound(questionNumber);
+        }
+
+        if (clientHandler.getScore() == clientHandler2.getScore()) {
+            clientHandler.outputWriter.println("It's a tie mdfkkkk!");
+            clientHandler2.outputWriter.println("It's a tie mdfkkkk!");
 
         }
+
+        if (clientHandler.getScore() > clientHandler2.getScore()) {
+            clientHandler.outputWriter.println("You win with the score of: " + clientHandler.getScore());
+            clientHandler2.outputWriter.println("You lose with the score of: " + clientHandler.getScore());
+        }
+        clientHandler.outputWriter.println("You lose with the score of: " + clientHandler.getScore());
+        clientHandler2.outputWriter.println("You win with the score of: " + clientHandler2.getScore());
     }
 
-    public void playRound(int questionNumber){
-        serverBroadcast(gameHandler.getQuestion(questionNumber));
+    /**
+     * Method to play one question at a time
+     *
+     * @param questionNumber number of the question
+     */
+    public void playRound(int questionNumber) {
+        serverBroadcast(getQuestion(questionNumber));
 
-        while (!clientHandler.isPlayed() || !clientHandler2.isPlayed() ) {
+        while (!clientHandler.isPlayed() || !clientHandler2.isPlayed()) {
             try {
                 Thread.sleep(200);
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+                System.err.println(e);
+            }
         }
 
         clientHandler2.setPlayed(false);
         clientHandler.setPlayed(false);
+        /**
+         * System.out.println(clientHandler.isPlayed());
+         *
+         *  System.out.println(clientHandler2.isPlayed());
+         *
+         *
+         *
+         *
+         *
+         */
+
+
 
     }
-
 
     /**
      * Has a blocking method - accept(); - it will wait until a client connects to
@@ -119,5 +141,16 @@ public class Server {
                 client.sendServerQuestion(serverMessage + "\n");
             }
         }
+    }
+
+    /**
+     * @return
+     */
+    public int getGameLength() {
+        return Questions.values().length;
+    }
+
+    public String getQuestion(int question) {
+        return Questions.values()[question].getMessage();
     }
 }
