@@ -7,6 +7,5 @@ public class ClientLauncher {
         Client client = new Client("localhost", 9090);
         client.init();
         client.start();
-
     }
 }

@@ -1,7 +1,7 @@
-package org.academiadecodigo.codecadets.comms;
+package org.academiadecodigo.codecadets.communication;
 
 public enum Messages {
-    RESP,
+    RESPONSE,
     CORRECT,
     WRONG;
 
@@ -14,7 +14,6 @@ public enum Messages {
                 arguments += (arg + " ");
             }
         }
-
         return messages + " " + arguments + "\n";
     }
 }

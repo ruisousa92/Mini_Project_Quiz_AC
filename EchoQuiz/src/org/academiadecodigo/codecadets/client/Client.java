@@ -2,8 +2,9 @@ package org.academiadecodigo.codecadets.client;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
-import org.academiadecodigo.codecadets.comms.Messages;
-import org.academiadecodigo.codecadets.quiz.Questions;
+import org.academiadecodigo.codecadets.communication.Messages;
+import org.academiadecodigo.codecadets.questions.Questions;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,9 +17,10 @@ public class Client {
     private Prompt prompt;
     private PrintWriter writer;
     private BufferedReader reader;
-    private int questionNum = 1;
+    private int questionNumber = 1;
 
     public Client(String host, int portNumber) {
+
         try {
             this.socket = new Socket(host, portNumber);
         } catch (IOException e) {
@@ -28,20 +30,20 @@ public class Client {
     }
 
     public boolean init() {
+
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
             return false;
         }
-
         return true;
     }
 
     public void start() {
         while (!socket.isClosed()) {
-            try {
 
+            try {
                 String question = readFromServer();
 
                 if (question.isEmpty()) {
@@ -57,7 +59,6 @@ public class Client {
 
                     System.out.println(reader.readLine());
                 }
-
             } catch (IOException e) {
                 System.err.println("Server Disconnected.");
                 System.exit(0);
@@ -75,10 +76,8 @@ public class Client {
         scanner.setMessage(question);
 
         int chosenAnswer = prompt.getUserInput(scanner);
-
-        String[] query = {questionNum + "", chosenAnswer + ""};
-
-        writer.println(Messages.sendResponse(Messages.RESP, query));
+        String[] query = {questionNumber + "", chosenAnswer + ""};
+        writer.println(Messages.sendResponse(Messages.RESPONSE, query));
 
         try {
             String response = readFromServer();
@@ -86,8 +85,7 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        questionNum++;
+        questionNumber++;
     }
 
     private String readFromServer() throws IOException {

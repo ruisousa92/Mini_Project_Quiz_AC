@@ -1,4 +1,4 @@
-package org.academiadecodigo.codecadets.quiz;
+package org.academiadecodigo.codecadets.questions;
 
 public enum Questions {
 
@@ -17,7 +17,6 @@ public enum Questions {
     QUESTION_THIRTEEN(3, "Question 13?&answer1&answer2&answer3&answer4"),
     QUESTION_FOURTEEN(4, "Question 14?&answer1&answer2&answer3&answer4"),
     QUESTION_FIFTEEN(1, "Question 15?&answer1&answer2&answer3&answer4");
-
 
     private String message;
     private int correctAnswer;

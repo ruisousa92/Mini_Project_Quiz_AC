@@ -1,6 +1,6 @@
 package org.academiadecodigo.codecadets.server;
 
-import org.academiadecodigo.codecadets.quiz.Questions;
+import org.academiadecodigo.codecadets.questions.Questions;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,7 +15,6 @@ public class Server {
 
     private static final String DEFAULT_NAME = "Code Cadet";
     private static final int MAXIMUM_CLIENTS = 2;
-
     private final ServerSocket serverSocket;
     private final ExecutorService service;
     private final List<ClientHandler> clients;
@@ -29,23 +28,22 @@ public class Server {
     }
 
     public void start() {
+
         waitingForClientConnections();
 
-        //TODO Change 1 for Question.lenght
         for (int questionNumber = 0; questionNumber < getGameLength(); questionNumber++) {
             playRound(questionNumber);
         }
-
         clientHandler.sendScore(clientHandler, clientHandler2);
-        System.out.println("teste");
     }
 
     /**
-     * Method to play one question at a time
+     * Method to play one question at a time.
      *
      * @param questionNumber number of the question
      */
     public void playRound(int questionNumber) {
+
         serverBroadcast(getQuestion(questionNumber));
 
         while (!clientHandler.isPlayed() || !clientHandler2.isPlayed()) {
@@ -55,7 +53,6 @@ public class Server {
                 System.err.println(e);
             }
         }
-
         clientHandler2.setPlayed(false);
         clientHandler.setPlayed(false);
     }
@@ -75,8 +72,8 @@ public class Server {
             Socket clientSocket = serverSocket.accept();
             Socket clientSocket2 = serverSocket.accept();
 
-            clientHandler = new ClientHandler(clientSocket, DEFAULT_NAME + "has connected!");
-            clientHandler2 = new ClientHandler(clientSocket2, DEFAULT_NAME + "has connected!");
+            clientHandler = new ClientHandler(clientSocket);
+            clientHandler2 = new ClientHandler(clientSocket2);
 
             clientHandler.openIOStreams();
             clientHandler2.openIOStreams();
@@ -87,7 +84,6 @@ public class Server {
             service.submit(clientHandler);
             service.submit(clientHandler2);
 
-
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
@@ -97,14 +93,12 @@ public class Server {
      * @param clientHandler
      * @return
      */
-    private boolean addClient(ClientHandler clientHandler) {
+    private void addClient(ClientHandler clientHandler) {
         synchronized (clients) {
             if (clients.size() > MAXIMUM_CLIENTS) {
-                return false;
+                return;
             }
-
             clients.add(clientHandler);
-            return true;
         }
     }
 
