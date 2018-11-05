@@ -8,7 +8,7 @@ public enum Questions {
     QUESTION_FOUR(3, "In AC lore, what are Tomatoes?&Fruit&Vegetable&Tubérculo&A Male body part"),
     QUESTION_FIVE(2, "Who created Java?&Rui Ferrão&James Gosling&Roberto Pires&Jon Postel"),
     QUESTION_SIX(1, "What was Java's first name?&Oak&Oracle&Apple&Windows"),
-    QUESTION_SEVEN(3, "Primitive variables are stored where?&Constructor&Stack&Cache&CPU"),
+    QUESTION_SEVEN(2, "Java keywords are written in lowercase as well as uppercase?&True&False&More or less&Depend"),
     QUESTION_EIGHT(1, "Which team is the best?&ECHO&is&the&best"),
     QUESTION_NINE(4, "What is the only way to skip a lecture?&Losing an arm&Blow a tire in your car&Getting shot&Runny nose"),
     QUESTION_TEN(1, "What is an immutable object?&An object that can not be changed once its created&A Mutant Object&A non-Mutant Object&A Normal person"),
@@ -16,7 +16,7 @@ public enum Questions {
     QUESTION_TWELVE(2, "Which member of AC received \"Pé de ladrão\" from a police officer?&Ruben Maia&Brigas Pantufas&Rudy&Jorge"),
     QUESTION_THIRTEEN(4, "Which Master coder is the best one?&Praise&Master&Coder&Jorge"),
     QUESTION_FOURTEEN(2, "What is the best place to check Documentation?&JavaDocs&StackOverFlow&Roberto&Master Coders"),
-    QUESTION_FIFTEEN(3, "Where are we all going to work?&Garbage Truck&Restaurant&SubWay&InfoSistema (10+2)");
+    QUESTION_FIFTEEN(4, "Where are we all going to work?&Garbage Truck&Restaurant&SubWay&InfoSistema (10+2)");
 
     private String message;
     private int correctAnswer;
