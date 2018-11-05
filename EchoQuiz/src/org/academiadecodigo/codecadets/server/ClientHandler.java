@@ -70,7 +70,7 @@ public class ClientHandler implements Runnable {
 
         if (clientHandler.getScore() > clientHandler2.getScore()) {
             clientHandler.outputWriter.println("You WIN with the score of: " + clientHandler.getScore());
-            clientHandler2.outputWriter.println("You LOSE with the score of: " + clientHandler.getScore());
+            clientHandler2.outputWriter.println("You LOSE with the score of: " + clientHandler2.getScore());
             return;
         }
         clientHandler.outputWriter.println("You LOSE with the score of: " + clientHandler.getScore());
