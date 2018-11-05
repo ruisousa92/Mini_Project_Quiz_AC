@@ -2,6 +2,7 @@ package org.academiadecodigo.codecadets.client;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
+import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 import org.academiadecodigo.codecadets.communication.Welcome;
 import org.academiadecodigo.codecadets.communication.Messages;
 import org.academiadecodigo.codecadets.questions.Questions;
